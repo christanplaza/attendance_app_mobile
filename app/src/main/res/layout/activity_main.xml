@@ -11,10 +11,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="You are now logged in!"
-        app:layout_constraintBottom_toTopOf="@id/logoutButton"
+        app:layout_constraintBottom_toTopOf="@id/generateButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/generateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Generate QR"
+        app:layout_constraintBottom_toBottomOf="@id/logoutButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_logged_in"
+        />
 
     <Button
         android:id="@+id/logoutButton"
@@ -24,7 +35,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_logged_in"
+        app:layout_constraintTop_toBottomOf="@id/generateButton"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,8 @@ package com.example.attendanceapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.content.Intent;
@@ -48,7 +50,9 @@ public class LoginActivity extends AppCompatActivity {
     private void authenticateUser() {
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
-        String apiUrl = "http://192.168.1.7/attendance_app/api/login.php";
+        String apiUrl = "http://192.168.1.8/attendance_app/api/login.php";
+        SharedPreferences sharedPref = getSharedPreferences("attendance_app", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
 
         StringRequest request = new StringRequest(
                 Request.Method.POST,
@@ -58,13 +62,17 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            Log.d("tag", jsonObject.toString(4));
                             boolean success = jsonObject.getBoolean("success");
                             if (success) {
                                 Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
                                 // Get user role from the response
                                 String userRole = jsonObject.getString("userRole");
+                                // Get user id from the response
+                                int id = jsonObject.getInt("id");
+
+                                editor.putInt("id", id);
+                                editor.commit();
 
                                 // Update login state and user role
                                 sessionManager.setLogin(true, userRole);

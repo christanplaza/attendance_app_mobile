@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 public class MainActivity extends BaseActivity {
 
-    private Button logoutButton;
+    private Button logoutButton, generateButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,10 +18,19 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         logoutButton = findViewById(R.id.logoutButton);
+        generateButton = findViewById(R.id.generateButton);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 logout();
+            }
+        });
+
+        generateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, QRActivity.class);
+                startActivity(intent);
             }
         });
     }
