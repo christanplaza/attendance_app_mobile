@@ -47,15 +47,15 @@ public class QRActivity extends BaseActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("attendance_app", MODE_PRIVATE);
         int studentId = sharedPreferences.getInt("id", 0);
 
-        String url = "http://192.168.1.8/attendance_app/api/verify_class.php";
+        String url = "http://192.168.54.60/attendance_app/api/verify_class.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
+            public void onResponse(String response) {try {
+                JSONObject jsonObject = new JSONObject(response);
+                String status = jsonObject.getString("status");
+                if (status.equals("success")) {
                     String verify = jsonObject.getString("verify");
-
                     // Generate QR code image with verify string
                     QRCodeWriter writer = new QRCodeWriter();
                     BitMatrix bitMatrix = writer.encode(verify, BarcodeFormat.QR_CODE, 512, 512);
@@ -67,15 +67,20 @@ public class QRActivity extends BaseActivity {
                             bmp.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
                         }
                     }
-
                     // Set QR code image to ImageView
                     qrImageView.setImageBitmap(bmp);
-                    progressDialog.dismiss();
-
-                } catch (JSONException | WriterException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Error generating QR code", Toast.LENGTH_SHORT).show();
+                } else if (status.equals("error")) {
+                    String message = jsonObject.getString("message");
+                    // Display error message
+                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                    finish();
                 }
+                progressDialog.dismiss();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (WriterException e) {
+                throw new RuntimeException(e);
+            }
             }
         }, new Response.ErrorListener() {
             @Override

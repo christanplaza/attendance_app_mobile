@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     private void authenticateUser() {
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
-        String apiUrl = "http://192.168.1.8/attendance_app/api/login.php";
+        String apiUrl = "http://192.168.54.60/attendance_app/api/login.php";
         SharedPreferences sharedPref = getSharedPreferences("attendance_app", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
@@ -77,12 +77,14 @@ public class LoginActivity extends AppCompatActivity {
                                 // Update login state and user role
                                 sessionManager.setLogin(true, userRole);
 
-                                // Start the appropriate activity based on user role
+                                // Start the appropriate activity based on  role
                                 Intent intent;
                                 if (userRole.equals("student")) {
                                     intent = new Intent(LoginActivity.this, MainActivity.class);
                                 } else if (userRole.equals("parent")) {
-                                    intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    intent = new Intent(LoginActivity.this, ParentActivity.class);
+                                } else if (userRole.equals("faculty")) {
+                                    intent = new Intent(LoginActivity.this, TeacherActivity.class);
                                 } else {
                                     throw new JSONException("Invalid user role");
                                 }
