@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class QRActivity extends BaseActivity {
+    String local_IP = Constants.LOCAL_IP;
     private ImageView qrImageView;
     private ProgressDialog progressDialog;
 
@@ -47,7 +48,7 @@ public class QRActivity extends BaseActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("attendance_app", MODE_PRIVATE);
         int studentId = sharedPreferences.getInt("id", 0);
 
-        String url = "http://192.168.54.60/attendance_app/api/verify_class.php";
+        String url = local_IP + "/attendance_app/api/verify_class.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override

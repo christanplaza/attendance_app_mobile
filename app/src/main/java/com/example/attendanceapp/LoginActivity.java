@@ -1,4 +1,5 @@
 package com.example.attendanceapp;
+import com.example.attendanceapp.Constants;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
+    String local_IP = Constants.LOCAL_IP;
     private EditText usernameEditText;
     private EditText passwordEditText;
     private Button loginButton;
@@ -50,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     private void authenticateUser() {
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
-        String apiUrl = "http://192.168.54.60/attendance_app/api/login.php";
+        String apiUrl = local_IP + "/attendance_app/api/login.php";
         SharedPreferences sharedPref = getSharedPreferences("attendance_app", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
