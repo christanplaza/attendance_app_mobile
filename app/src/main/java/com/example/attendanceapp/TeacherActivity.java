@@ -83,7 +83,6 @@ public class TeacherActivity extends BaseActivity {
                         String status = jsonObject.getString("status");
                         if (status.equals("success")) {
                             String message = jsonObject.getString("message");
-                            Log.d("response", message);
                             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                         } else if (status.equals("error")) {
                             String message = jsonObject.getString("message");

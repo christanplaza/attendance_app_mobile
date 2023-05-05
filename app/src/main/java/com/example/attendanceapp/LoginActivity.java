@@ -52,9 +52,10 @@ public class LoginActivity extends AppCompatActivity {
     private void authenticateUser() {
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
-        String apiUrl = local_IP + "/attendance_app/api/login.php";
         SharedPreferences sharedPref = getSharedPreferences("attendance_app", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
+
+        String apiUrl = local_IP + "/attendance_app/api/login.php";
 
         StringRequest request = new StringRequest(
                 Request.Method.POST,
