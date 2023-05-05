@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -26,6 +27,7 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
     String local_IP = Constants.LOCAL_IP;
     private EditText usernameEditText;
+    private TextView signupTextView;
     private EditText passwordEditText;
     private Button loginButton;
     private SessionManager sessionManager;
@@ -38,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         usernameEditText = findViewById(R.id.usernameEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         loginButton = findViewById(R.id.loginButton);
+        signupTextView = findViewById(R.id.signupTextView);
 
         sessionManager = new SessionManager(getApplicationContext());
 
@@ -45,6 +48,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 authenticateUser();
+            }
+        });
+
+        signupTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
             }
         });
     }
