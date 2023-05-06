@@ -24,7 +24,7 @@ import java.util.Map;
 
 public class ParentActivity extends BaseActivity {
     String local_IP = Constants.LOCAL_IP;
-    private Button logoutButton;
+    private Button logoutButton, submitExcuseLetterButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,8 @@ public class ParentActivity extends BaseActivity {
         setContentView(R.layout.activity_parent);
 
         logoutButton = findViewById(R.id.logoutButton);
+        submitExcuseLetterButton = findViewById(R.id.submitExcuseLetter);
+
         SharedPreferences sharedPreferences = getSharedPreferences("attendance_app", MODE_PRIVATE);
         int parentId = sharedPreferences.getInt("id", 0);
 
@@ -80,6 +82,14 @@ public class ParentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 logout();
+            }
+        });
+
+        submitExcuseLetterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ParentActivity.this, ExcuseLetterForm.class);
+                startActivity(intent);
             }
         });
     }
