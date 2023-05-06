@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -29,6 +30,7 @@ import java.util.Map;
 public class RegisterActivity extends AppCompatActivity {
     String local_IP = Constants.LOCAL_IP;
     private Button registerButton;
+    private TextView loginPageButton;
 
     private EditText firstNameEditText, lastNameEditText, usernameEditText, emailEditText, passwordEditText, confirmPasswordEditText;
 
@@ -40,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         registerButton = findViewById(R.id.registerButton);
+        loginPageButton = findViewById(R.id.loginTextView);
         RadioGroup roleRadioGroup = findViewById(R.id.roleRadioGroup);
         RadioButton parentRadioButton = findViewById(R.id.parentRadioButton);
         RadioButton studentRadioButton = findViewById(R.id.studentRadioButton);
@@ -61,6 +64,13 @@ public class RegisterActivity extends AppCompatActivity {
                     // student radio button is checked
                     role = "student";
                 }
+            }
+        });
+
+        loginPageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 

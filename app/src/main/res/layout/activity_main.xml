@@ -10,11 +10,23 @@
         android:id="@+id/textview_logged_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You are now logged in!"
-        app:layout_constraintBottom_toTopOf="@id/generateButton"
+        android:text="Welcome"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@id/student_code"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/student_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Unique Code"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@id/generateButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textview_logged_in" />
 
     <Button
         android:id="@+id/generateButton"

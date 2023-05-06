@@ -107,7 +107,7 @@
             android:text="Register" />
 
         <TextView
-            android:id="@+id/signupTextView"
+            android:id="@+id/loginTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Already have an account? Login Here."
