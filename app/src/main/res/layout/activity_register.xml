@@ -45,13 +45,13 @@
             android:minHeight="48dp" />
 
         <EditText
-            android:id="@+id/emailEditText"
+            android:id="@+id/phoneNumberEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Email"
+            android:hint="Phone Number"
             android:minHeight="48dp"
-            android:inputType="textEmailAddress" />
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/passwordEditText"

@@ -84,8 +84,10 @@ public class LoginActivity extends AppCompatActivity {
                                 String userRole = jsonObject.getString("userRole");
                                 // Get user id from the response
                                 int id = jsonObject.getInt("id");
+                                String name = jsonObject.getString("name");
 
                                 editor.putInt("id", id);
+                                editor.putString("name", name);
                                 editor.commit();
 
                                 // Update login state and user role

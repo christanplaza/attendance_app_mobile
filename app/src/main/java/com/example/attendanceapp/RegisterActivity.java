@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -26,13 +27,14 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
     String local_IP = Constants.LOCAL_IP;
     private Button registerButton;
     private TextView loginPageButton;
 
-    private EditText firstNameEditText, lastNameEditText, usernameEditText, emailEditText, passwordEditText, confirmPasswordEditText;
+    private EditText firstNameEditText, lastNameEditText, usernameEditText, phoneNumberEditText, passwordEditText, confirmPasswordEditText;
 
     private String role = "";
 
@@ -50,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
         firstNameEditText = findViewById(R.id.firstNameEditText);
         lastNameEditText = findViewById(R.id.lastNameEditText);
         usernameEditText = findViewById(R.id.usernameEditText);
-        emailEditText = findViewById(R.id.emailEditText);
+        phoneNumberEditText = findViewById(R.id.phoneNumberEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
 
@@ -81,9 +83,9 @@ public class RegisterActivity extends AppCompatActivity {
                 String firstName = firstNameEditText.getText().toString().trim();
                 String lastName = lastNameEditText.getText().toString().trim();
                 String username = usernameEditText.getText().toString().trim();
-                String email = emailEditText.getText().toString().trim();
                 String password = passwordEditText.getText().toString().trim();
                 String confirmPassword = confirmPasswordEditText.getText().toString().trim();
+                String phoneNumber = phoneNumberEditText.getText().toString().trim();
 
                 // Validate input fields
                 if (TextUtils.isEmpty(firstName)) {
@@ -101,13 +103,9 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (TextUtils.isEmpty(email)) {
-                    emailEditText.setError("Please enter your email.");
-                    return;
-                }
-
-                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    emailEditText.setError("Please enter a valid email.");
+                if (!Pattern.matches("^\\+?63\\d{10}$", phoneNumber)) {
+                    Log.d("phone", phoneNumber);
+                    phoneNumberEditText.setError("Please enter a valid Philippine phone number (+639XXXXXXXXX).");
                     return;
                 }
 
@@ -174,7 +172,7 @@ public class RegisterActivity extends AppCompatActivity {
                         params.put("first_name", firstName);
                         params.put("last_name", lastName);
                         params.put("username", username);
-                        params.put("email", email);
+                        params.put("phone_number", phoneNumber);
                         params.put("password", password);
                         params.put("role", role);
                         return params;
