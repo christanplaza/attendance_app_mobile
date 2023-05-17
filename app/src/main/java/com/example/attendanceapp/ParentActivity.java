@@ -7,7 +7,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -24,7 +26,9 @@ import java.util.Map;
 
 public class ParentActivity extends BaseActivity {
     String local_IP = Constants.LOCAL_IP;
-    private Button logoutButton, submitExcuseLetterButton;
+    private Button logoutButton, submitExcuseLetterButton, viewAttendanceButton;
+    private TextView welcomeTextView;
+    WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +37,19 @@ public class ParentActivity extends BaseActivity {
 
         logoutButton = findViewById(R.id.logoutButton);
         submitExcuseLetterButton = findViewById(R.id.submitExcuseLetter);
+        webView = findViewById(R.id.webView);
+        viewAttendanceButton = findViewById(R.id.viewAttendanceLogs);
+        welcomeTextView = findViewById(R.id.welcomeTextView);
 
         SharedPreferences sharedPreferences = getSharedPreferences("attendance_app", MODE_PRIVATE);
         int parentId = sharedPreferences.getInt("id", 0);
+        String name = sharedPreferences.getString("name", "");
+
+
+        welcomeTextView.setText("Welcome " + name);
+
+        webView.getSettings().setJavaScriptEnabled(true); // Enable JavaScript (if needed)
+        webView.loadUrl(local_IP + "/attendance_app/parent/attendance_logs.php?id="+parentId); // Load the URL you want to display
 
         String apiUrl = local_IP + "/attendance_app/api/parent_login_verification.php";
         StringRequest request = new StringRequest(
@@ -92,6 +106,21 @@ public class ParentActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+
+        viewAttendanceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                webView.setVisibility(View.VISIBLE); // Show the WebView
+            }
+        });
+    }
+
+    public void onBackPressed() {
+        if (webView.getVisibility() == View.VISIBLE) {
+            webView.setVisibility(View.GONE); // Hide the WebView
+        } else {
+            super.onBackPressed(); // Continue with the default back button behavior
+        }
     }
 
     private void logout() {
