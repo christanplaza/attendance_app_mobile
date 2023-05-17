@@ -26,7 +26,7 @@ import org.json.JSONObject;
 public class MainActivity extends BaseActivity {
 
     private Button logoutButton, generateButton;
-    private TextView welcomeText, studentCode, noteText;
+    private TextView welcomeText, studentCode, noteText, announcementText;
     String local_IP = Constants.LOCAL_IP;
 
     @Override
@@ -39,6 +39,7 @@ public class MainActivity extends BaseActivity {
         welcomeText = findViewById(R.id.welcomeTextView);
         studentCode = findViewById(R.id.student_code);
         noteText = findViewById(R.id.noteTextView);
+        announcementText = findViewById(R.id.announcementTextView);
 
         SharedPreferences sharedPreferences = getSharedPreferences("attendance_app", MODE_PRIVATE);
         int studentId = sharedPreferences.getInt("id", 0);
@@ -67,6 +68,7 @@ public class MainActivity extends BaseActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Log.d("Response", response);
                         // Parse the JSON response
                         try {
                             JSONObject jsonObject = new JSONObject(response);
@@ -75,6 +77,9 @@ public class MainActivity extends BaseActivity {
                                 String firstName = jsonObject.getString("first_name");
                                 String lastName = jsonObject.getString("last_name");
                                 String uniqueCode = jsonObject.getString("unique_code");
+                                String msg = jsonObject.getString("msg");
+
+                                announcementText.setText(msg);
 
                                 // Do something with the retrieved data
                                 welcomeText.setText("Welcome " + firstName + " " + lastName);
